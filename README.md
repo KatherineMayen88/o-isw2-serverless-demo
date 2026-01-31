@@ -1,2 +1,1 @@
-# o-isw2-serverless-demo
-ingenieria de software ejercicio serverless
+# ISW2 – Serverless Demo
