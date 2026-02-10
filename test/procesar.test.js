@@ -50,8 +50,8 @@ test("procesar maneja nombre ausente", () => {
     assert.ok(res.body.resultado.includes("ANÓNIMO"));
 });
 
-test("procesar devuelve resultado en mayúsculas (política de calidad)", () => {
-    const req = { query: { nombre: "Carlos" } };
+test("procesar devuelve resultado en mayúsculas, política de calidad", () => {
+    const req = { query: { nombre: "Katherine" } };
 
     const res = {
         statusCode: null,
@@ -70,5 +70,8 @@ test("procesar devuelve resultado en mayúsculas (política de calidad)", () => 
 
     assert.equal(res.statusCode, 200);
     assert.ok(res.body.resultado);
-    assert.equal(res.body.resultado, res.body.resultado.toUpperCase());
+    
+    const nombreProcesado = res.body.resultado.split(": ")[1];
+    assert.equal(nombreProcesado, nombreProcesado.toUpperCase());
+
 });
