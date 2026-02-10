@@ -28,6 +28,7 @@ test("procesar convierte el nombre a mayúsculas", () => {
     });
 });
 
+
 test("procesar maneja nombre ausente", () => {
     const req = { query: {} };
 
@@ -49,6 +50,7 @@ test("procesar maneja nombre ausente", () => {
     assert.equal(res.statusCode, 200);
     assert.ok(res.body.resultado.includes("ANÓNIMO"));
 });
+
 
 test("procesar devuelve resultado en mayúsculas, política de calidad", () => {
     const req = { query: { nombre: "Katherine" } };
@@ -73,5 +75,28 @@ test("procesar devuelve resultado en mayúsculas, política de calidad", () => {
     
     const nombreProcesado = res.body.resultado.split(": ")[1];
     assert.equal(nombreProcesado, nombreProcesado.toUpperCase());
-
 });
+
+
+test("procesar devuelve error simulado cuando nombre === 'error'", () => {
+    const req = { query: { nombre: "error" } };
+
+    const res = {
+        statusCode: null,
+        body: null,
+        status(code) {
+          this.statusCode = code;
+          return this;
+        },
+        json(payload) {
+          this.body = payload;
+          return this;
+        }
+    };
+
+    handler(req, res);
+    
+    assert.equal(res.statusCode, 500);
+    assert.deepEqual(res.body, { error: "Falla simulada" });
+});
+
